@@ -9,27 +9,77 @@ import Header from './Components/Header';
 import ShowPreview from './Components/Show-Preview';
 import ShowDetails from './Components/ShowDetails';
 import Favourites from './Components/Favourites';
-import AudioPlayer from './Components/AudioPlayer'
+import AudioPlayer from './Components/AudioPlayer';
 import Carousel from './Components/Carousel';
 import './App.css';
 
 /**
- * The main application component for the podcast website.
+ * Main application component for the podcast website.
  * This component handles the core logic, including fetching shows, managing user authentication,
  * rendering the home view, show details, favourites, and account management.
- * 
+ *
  * @component
+ * @returns {JSX.Element} The rendered App component.
  */
 function App() {
+  /**
+   * State to hold the list of fetched shows.
+   * @type {Array<Object>}
+   */
   const [data, setData] = useState([]);
+
+  /**
+   * State to manage the loading status while fetching shows.
+   * @type {boolean}
+   */
   const [loading, setLoading] = useState(true);
+
+  /**
+   * State to store the selected show for which details are being displayed.
+   * @type {Object|null}
+   */
   const [selectedShow, setSelectedShow] = useState(null);
+
+  /**
+   * State to track the loading status while fetching show details.
+   * @type {boolean}
+   */
   const [showDetailsLoading, setShowDetailsLoading] = useState(false);
+
+  /**
+   * State to track the selected genre for filtering shows.
+   * @type {string}
+   */
   const [selectedGenre, setSelectedGenre] = useState('All');
-  const [view, setView] = useState('home'); // Track the current view
+
+  /**
+   * State to track the current view of the app (e.g., 'home', 'favourites', 'account').
+   * @type {string}
+   */
+  const [view, setView] = useState('home');
+
+  /**
+   * State to store the current user session obtained from Supabase authentication.
+   * @type {Object|null}
+   */
   const [session, setSession] = useState(null);
+
+  /**
+   * Fuse.js instance for searching through shows.
+   * @type {Fuse|null}
+   */
   const [fuse, setFuse] = useState(null);
+
+  /**
+   * State to track the current sorting order for shows.
+   * @type {string}
+   */
   const [sortOrder, setSortOrder] = useState('all');
+
+  /**
+   * State to store the currently playing episode.
+   * @type {Object|null}
+   */
   const [currentEpisode, setCurrentEpisode] = useState(null);
 
   /**
@@ -106,6 +156,7 @@ function App() {
     }
   };
 
+  // If data is still loading, display a loading message
   if (loading) return <p>Loading shows...</p>;
 
   /**
@@ -203,7 +254,11 @@ function App() {
           onSearch={handleSearch}
           onSortChange={handleSortChange}
         />
-        <Favourites user={session.user} /> {/* Passing user to Favourites */}
+        <Favourites 
+          user={session.user} 
+          setCurrentEpisode={setCurrentEpisode} 
+          currentEpisode={currentEpisode} 
+        />
       </div>
     );
   }
@@ -230,6 +285,7 @@ function App() {
         <section className="show-list">
           {loading ? <p>Loading shows...</p> : showPreviews}
         </section>
+        {currentEpisode && <AudioPlayer episode={currentEpisode} user={session.user} />}
       </>
     );
   }
@@ -241,18 +297,16 @@ function App() {
         {showDetailsLoading ? (
           <p>Loading show details...</p>
         ) : (
-          selectedShow && <ShowDetails show={selectedShow} goBack={() => setView('home')} />
+          selectedShow && <ShowDetails 
+          show={selectedShow} 
+          goBack={() => setView('home')}
+          setCurrentEpisode={setCurrentEpisode}
+          user={session.user} />
         )}
+         {currentEpisode && <AudioPlayer episode={currentEpisode} user={session.user} />}
       </>
     );
   }
-
-  return (
-    <>
-      {/* Ensure AudioPlayer is always rendered and passed current episode */}
-      {currentEpisode && <AudioPlayer episode={currentEpisode} user={session.user} />}
-    </>
-  );
 }
 
 export default App;

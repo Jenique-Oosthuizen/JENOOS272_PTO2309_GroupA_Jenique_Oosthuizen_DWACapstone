@@ -485,7 +485,7 @@ h1 {
   transition: background-color 0.3s;
 }
 
-/*AUDIO PLAYER COMPONENT*/
+/* AUDIO PLAYER COMPONENT */
 .audio-player {
   position: fixed;
   bottom: 0;
@@ -493,12 +493,18 @@ h1 {
   width: 100%;
   background-color: #1e1e1e;
   color: #fff;
-  padding: 15px 20px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  gap: 10px; /* Add some space between elements */
+}
+
+.audio-player audio {
+  flex-grow: 2;
+  min-width: 100px; /* Ensure the audio player doesn't shrink too much */
 }
 
 .audio-player button {
@@ -522,49 +528,84 @@ h1 {
 
 .audio-player .timestamps {
   font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
+.error-message {
+  color: red;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.success-message {
+  color: green;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.loading-spinner {
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+}
 
 /*FAVOURITES COMPONENT*/
 .favourites-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
 }
 
 .favourite-item {
-  background-color: #1e1e1e;
-  border-radius: 10px;
+  background-color: #2e2e2e;
   padding: 20px;
-  color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .favourite-item h4 {
-  margin: 0;
-  font-size: 1.4rem;
-  color: #a08cfc;
+  font-size: 1.2rem;
+  color: #b399ff;
 }
 
 .favourite-item p {
-  margin: 5px 0;
-  color: #d3d3d3;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  color: #fff;
 }
 
 .favourite-item button {
   background-color: #a08cfc;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  align-self: flex-start;
+  margin-right: 10px;
+  font-size: 0.9rem;
 }
 
 .favourite-item button:hover {
   background-color: #7c65f8;
+}
+
+.favourite-item button:active {
+  background-color: #5b46e8;
+}
+
+.favourite-item .remove-btn {
+  background-color: #ff7b7b;
+}
+
+.favourite-item .remove-btn:hover {
+  background-color: #f25454;
+}
+
+.sort-options {
+  padding: 5px;
+  background-color: #333;
+  color: #a08cfc;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  max-width: 160px;
 }
