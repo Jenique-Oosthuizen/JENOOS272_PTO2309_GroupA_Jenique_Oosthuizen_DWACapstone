@@ -4,7 +4,7 @@ import { supabase } from './UserAccount/supabaseClient';
 import Auth from './UserAccount/Auth';
 import Account from './UserAccount/Account';
 import Fuse from 'fuse.js';
-import { genreNames } from './Assets/GenreNames';
+import { genreNames } from './assets/GenreNames';
 import Header from './Components/Header';
 import ShowPreview from './Components/Show-Preview';
 import ShowDetails from './Components/ShowDetails';
