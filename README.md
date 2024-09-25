@@ -15,6 +15,7 @@ A podcast platform built with **React** that allows users to browse podcasts, pl
   - [**API Documentation**](#api-documentation)
   - [**Supabase Setup**](#supabase-setup)
     - [Setting up Supabase](#setting-up-supabase)
+  - [**Netlify URL**](#netlify-url)
   - [**License**](#license)
 
 ---
@@ -176,6 +177,9 @@ This app uses **Supabase** for authentication and managing user-specific data su
    ```
 
 ---
+
+## **Netlify URL**
+https://melodic-tanuki-a62508.netlify.app
 
 ## **License**
 
